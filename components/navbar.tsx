@@ -13,7 +13,7 @@ export const Navbar = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur">
-      <div className="mx-auto flex h-14 max-w-5xl items-center justify-end px-6">
+      <div className="mx-auto flex h-14 max-w-5xl items-center justify-end ">
         <div className="flex items-center gap-6">
           {/* Portfolio */}
           <Link

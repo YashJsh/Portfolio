@@ -1,10 +1,10 @@
 import { Navbar } from "@/components/navbar";
 import { About } from "@/sections/about";
-import { Connect } from "@/sections/connect";
+import { Contact } from "@/sections/connect";
 import { Footer } from "@/sections/footer";
 import { GithubActivity } from "@/sections/github_activity";
 import { Hero } from "@/sections/hero";
-import { Projects } from "@/sections/projects";
+import {Projects} from "@/sections/projects";
 import { Stack } from "@/sections/stack";
 
 
@@ -18,7 +18,7 @@ export default function Home() {
         <Projects />
         <Stack />
         <GithubActivity/>
-        <Connect/>
+        <Contact/>
         <Footer/>
       </div>
     </main>
