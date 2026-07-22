@@ -147,6 +147,12 @@ export default function Page() {
       <section id="contact">
         <BlurFade delay={BLUR_FADE_DELAY * 16}>
           <ContactSection />
+          <div className="w-full flex flex-col items-center gap-6 mt-4 pb-12">
+            <hr className="w-full border-t border-dashed border-border" />
+            <p className="text-sm text-muted-foreground/60 font-sans tracking-wide">
+              Heads down, learn and build.
+            </p>
+          </div>
         </BlurFade>
       </section>
     </main>

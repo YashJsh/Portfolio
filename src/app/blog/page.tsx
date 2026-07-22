@@ -1,9 +1,10 @@
 import BlurFade from "@/components/magicui/blur-fade";
-import { allPosts } from "content-collections";
+import { prisma } from "@/lib/db";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { paginate, normalizePage } from "@/lib/pagination";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Lock } from "lucide-react";
+import { formatDate } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -29,12 +30,9 @@ export default async function BlogPage({
 }) {
   const { page: pageParam } = await searchParams;
 
-  const posts = allPosts;
-  const sortedPosts = [...posts].sort((a, b) => {
-    if (new Date(a.publishedAt) > new Date(b.publishedAt)) {
-      return -1;
-    }
-    return 1;
+  const sortedPosts = await prisma.post.findMany({
+    where: { published: true },
+    orderBy: { publishedAt: "desc" },
   });
 
   const totalPages = Math.ceil(sortedPosts.length / PAGE_SIZE);
@@ -47,7 +45,22 @@ export default async function BlogPage({
   return (
     <section id="blog">
       <BlurFade delay={BLUR_FADE_DELAY}>
-        <h1 className="text-2xl font-semibold tracking-tight mb-2">Blog <span className="ml-1 bg-card border border-border rounded-md px-2 py-1 text-muted-foreground text-sm">{sortedPosts.length} posts</span></h1>
+        <div className="flex items-center justify-between mb-2">
+          <h1 className="text-2xl font-semibold tracking-tight">
+            Blog{" "}
+            <span className="ml-1 bg-card border border-border rounded-md px-2 py-1 text-muted-foreground text-sm">
+              {sortedPosts.length} posts
+            </span>
+          </h1>
+          <Link
+            href="/blog/admin"
+            className="text-muted-foreground hover:text-foreground transition-colors p-1.5 rounded-lg border border-transparent hover:border-border hover:bg-muted/50"
+            title="Admin Access - Try to write a post!"
+            aria-label="Admin Access"
+          >
+            <Lock className="size-4" />
+          </Link>
+        </div>
         <p className="text-sm text-muted-foreground mb-8">
           My thoughts on software development, life, and more.
         </p>
@@ -58,7 +71,7 @@ export default async function BlogPage({
           <BlurFade delay={BLUR_FADE_DELAY * 2}>
             <div className="flex flex-col gap-5">
               {paginatedPosts.map((post, id) => {
-                const slug = post._meta.path.replace(/\.mdx$/, "");
+                const slug = post.slug;
                 const indexNumber = (pagination.page - 1) * PAGE_SIZE + id + 1;
                 return (
                   <BlurFade delay={BLUR_FADE_DELAY * 3 + id * 0.05} key={slug}>
@@ -80,7 +93,7 @@ export default async function BlogPage({
                           </span>
                         </p>
                         <p className="text-xs text-muted-foreground">
-                          {post.publishedAt}
+                          {formatDate(post.publishedAt)}
                         </p>
                       </div>
                     </Link>

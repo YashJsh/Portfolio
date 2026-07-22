@@ -1,5 +1,5 @@
 import { Icons } from "@/components/icons";
-import { HomeIcon, NotebookIcon } from "lucide-react";
+import { HomeIcon, NotebookIcon, Pencil } from "lucide-react";
 
 export const DATA = {
   name: "Yash Joshi",
@@ -10,7 +10,7 @@ export const DATA = {
   description:
     "I build things. I write code. Software Developer.",
   summary:
-    "Hi, I’m Yash. I like building things that genuinely interest me. Most of my projects start with curiosity rather than a checklist or a tutorial. If something makes me wonder “how does this actually work?”, I try to build a small version of it myself. I’ve built a chess game to better understand game logic and real-time interactions, and a WebSocket-based video calling app to learn how signaling and media streams work behind the scenes. I work across both frontend and backend, and I enjoy connecting the two — designing APIs, handling data flow, and seeing everything come together cleanly in the browser. Right now, I’m focused on learning deeply, building practical projects, and growing step by step as an engineer.",
+    `I’m Yash Joshi, Software Developer who builds projects from scratch to understand how they work behind the scenes. I treat products like my own, spend my time learning, and care about refining the details of what I build.`,
   avatarUrl: "/yashjsh.svg",
   skills: [
     { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
@@ -33,6 +33,7 @@ export const DATA = {
   navbar: [
     { href: "/", icon: HomeIcon, label: "Home" },
     { href: "/blog", icon: NotebookIcon, label: "Blog" },
+    { href: "/blog/admin", icon: Pencil, label: "Write" },
   ],
   contact: {
     email: "yash.jsh0@gmail.com",
