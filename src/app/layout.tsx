@@ -105,7 +105,7 @@ export default function RootLayout({
                   }}
                 />
               </div>
-              <div className="flex flex-col min-h-[100dvh] z-[10] space-y-10 px-10 max-[450px]:px-4 py-10 relative border-dashed border-x dark:border-white/30 border-black/30 max-w-2xl mx-auto bg-background">
+              <div className="flex flex-col min-h-[100dvh] z-[10] space-y-10 px-10 max-[450px]:px-4 py-10 relative border-dashed border-x dark:border-white/30 border-black/30 max-w-[740px] mx-auto bg-background">
                 {children}
               </div>
               <Navbar />

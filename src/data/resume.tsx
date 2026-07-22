@@ -67,25 +67,25 @@ export const DATA = {
   work: [] as any[],
   education: [
     {
-      school: "Maharaja Agrasen Institute of Technology",
-      degree: "B.Tech in Computer Science",
-      start: "2023",
+      school: "Amrita University, Coimbatore",
+      degree: "Masters in Computer Application",
+      start: "2025",
       end: "2027",
-      logoUrl: "https://upload.wikimedia.org/wikipedia/en/thumb/4/4b/Maharaja_Agrasen_Institute_of_Technology_logo.png/220px-Maharaja_Agrasen_Institute_of_Technology_logo.png",
+      logoUrl: "https://upload.wikimedia.org/wikipedia/en/3/30/Amrita_Vishwa_Vidyapeetham_-_Logo_Icon.svg",
     },
     {
-      school: "Siddhartha Public School",
-      degree: "Class XII (CBSE) - 84.8%",
+      school: "BCAS, Delhi University",
+      degree: "BSc (H) Computer Science",
       start: "2021",
-      end: "2023",
-      logoUrl: "",
+      end: "2024",
+      logoUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRF1WKOPZjFE6GY9RsRPYLJXwDBSodbyRaTOMl0MjCs-w&s=10",
     },
     {
-      school: "D.A.V. Public School",
-      degree: "Class X (CBSE) - 91.6%",
-      start: "2010",
+      school: "New Beersheba Public School, Pithoragarh",
+      degree: "CBSE Class - XI",
+      start: "2019",
       end: "2021",
-      logoUrl: "https://upload.wikimedia.org/wikipedia/en/thumb/4/4b/DAV_College_Managing_Committee_logo.svg/1200px-DAV_College_Managing_Committee_logo.svg.png",
+      logoUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTnRbEPBhk7253DDOMoShK9EjDlTu1f3RUQDySKiLl9w&s=10",
     }
   ] as any[],
   projects: [

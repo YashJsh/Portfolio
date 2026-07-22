@@ -17,13 +17,13 @@ const BLUR_FADE_DELAY = 0.04;
 
 export default function Page() {
   const StripeDivider = () => (
-    <div className="relative w-[100vw] left-1/2 -translate-x-1/2 h-[30px] bg-diagonal-stripes opacity-40 border-y border-dashed border-black/20 dark:border-white/30 pointer-events-none my-4"></div>
+    <div className="relative w-[100vw] left-1/2 -translate-x-1/2 h-[30px] bg-diagonal-stripes opacity-40 border-y border-dashed border-black/20 dark:border-white/30 pointer-events-none my-2"></div>
   );
 
   return (
-    <main className="min-h-dvh flex flex-col gap-6 relative">
+    <main className="min-h-dvh flex flex-col gap-4 relative">
       <section id="hero">
-        <div className="mx-auto w-full max-w-2xl space-y-8">
+        <div className="mx-auto w-full max-w-full space-y-8">
           <div className="gap-2 gap-y-6 flex flex-col md:flex-row justify-between">
             <div className="gap-2 flex flex-col order-2 md:order-1">
               <BlurFadeText

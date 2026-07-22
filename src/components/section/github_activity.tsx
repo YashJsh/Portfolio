@@ -25,8 +25,8 @@ export function GithubActivity() {
           blockSize={12}
           blockMargin={4}
           theme={{
-            light: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
-            dark: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353'],
+            light: ['#ebedf0', '#d1d5db', '#9ca3af', '#4b5563', '#1f2937'],
+            dark: ['#161b22', '#374151', '#4b5563', '#9ca3af', '#e5e7eb'],
           }}
         />
       </div>
