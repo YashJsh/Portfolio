@@ -1,5 +1,5 @@
 import { Icons } from "@/components/icons";
-import { HomeIcon, NotebookIcon } from "lucide-react";
+import { HomeIcon, NotebookIcon, Pencil } from "lucide-react";
 
 export const DATA = {
   name: "Yash Joshi",
@@ -10,7 +10,7 @@ export const DATA = {
   description:
     "I build things. I write code. Software Developer.",
   summary:
-    "Hi, I’m Yash. I like building things that genuinely interest me. Most of my projects start with curiosity rather than a checklist or a tutorial. If something makes me wonder “how does this actually work?”, I try to build a small version of it myself. I’ve built a chess game to better understand game logic and real-time interactions, and a WebSocket-based video calling app to learn how signaling and media streams work behind the scenes. I work across both frontend and backend, and I enjoy connecting the two — designing APIs, handling data flow, and seeing everything come together cleanly in the browser. Right now, I’m focused on learning deeply, building practical projects, and growing step by step as an engineer.",
+    `I’m Yash Joshi, Software Developer who builds projects from scratch to understand how they work behind the scenes. I treat products like my own, spend my time learning, and care about refining the details of what I build.`,
   avatarUrl: "/yashjsh.svg",
   skills: [
     { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
@@ -33,6 +33,7 @@ export const DATA = {
   navbar: [
     { href: "/", icon: HomeIcon, label: "Home" },
     { href: "/blog", icon: NotebookIcon, label: "Blog" },
+    { href: "/blog/admin", icon: Pencil, label: "Write" },
   ],
   contact: {
     email: "yash.jsh0@gmail.com",
@@ -67,31 +68,31 @@ export const DATA = {
   work: [] as any[],
   education: [
     {
-      school: "Maharaja Agrasen Institute of Technology",
-      degree: "B.Tech in Computer Science",
-      start: "2023",
+      school: "Amrita University, Coimbatore",
+      degree: "Masters in Computer Application",
+      start: "2025",
       end: "2027",
-      logoUrl: "https://upload.wikimedia.org/wikipedia/en/thumb/4/4b/Maharaja_Agrasen_Institute_of_Technology_logo.png/220px-Maharaja_Agrasen_Institute_of_Technology_logo.png",
+      logoUrl: "https://upload.wikimedia.org/wikipedia/en/3/30/Amrita_Vishwa_Vidyapeetham_-_Logo_Icon.svg",
     },
     {
-      school: "Siddhartha Public School",
-      degree: "Class XII (CBSE) - 84.8%",
+      school: "BCAS, Delhi University",
+      degree: "BSc (H) Computer Science",
       start: "2021",
-      end: "2023",
-      logoUrl: "",
+      end: "2024",
+      logoUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRF1WKOPZjFE6GY9RsRPYLJXwDBSodbyRaTOMl0MjCs-w&s=10",
     },
     {
-      school: "D.A.V. Public School",
-      degree: "Class X (CBSE) - 91.6%",
-      start: "2010",
+      school: "New Beersheba Public School, Pithoragarh",
+      degree: "CBSE Class - XI",
+      start: "2019",
       end: "2021",
-      logoUrl: "https://upload.wikimedia.org/wikipedia/en/thumb/4/4b/DAV_College_Managing_Committee_logo.svg/1200px-DAV_College_Managing_Committee_logo.svg.png",
+      logoUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTnRbEPBhk7253DDOMoShK9EjDlTu1f3RUQDySKiLl9w&s=10",
     }
   ] as any[],
   projects: [
     {
       title: "Real-time Multiplayer Chess Game",
-      href: "https://chess-opal-one.vercel.app/",
+      href: "https://chess.imyash.in",
       dates: "",
       active: true,
       description:
@@ -108,7 +109,7 @@ export const DATA = {
       links: [
         {
           type: "Website",
-          href: "https://chess-opal-one.vercel.app/",
+          href: "https://chess.imyash.in",
           icon: <Icons.globe className="size-3" />,
         },
         {
@@ -117,7 +118,7 @@ export const DATA = {
           icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "",
+      image: "/chess.svg",
       video: "",
     },
     {

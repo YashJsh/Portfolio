@@ -1,25 +1,19 @@
-import { allPosts } from "content-collections";
+import { prisma } from "@/lib/db";
 import { formatDate } from "@/lib/utils";
 import { DATA } from "@/data/resume";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { MDXContent } from "@content-collections/mdx/react";
-import { mdxComponents } from "@/mdx-components";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
-function getSortedPosts() {
-  return [...allPosts].sort((a, b) => {
-    if (new Date(a.publishedAt) > new Date(b.publishedAt)) {
-      return -1;
-    }
-    return 1;
-  });
-}
+import ReactMarkdown from "react-markdown";
 
 export async function generateStaticParams() {
-  return allPosts.map((post) => ({
-    slug: post._meta.path.replace(/\.mdx$/, ""),
+  const posts = await prisma.post.findMany({
+    where: { published: true },
+    select: { slug: true },
+  });
+  return posts.map((post) => ({
+    slug: post.slug,
   }));
 }
 
@@ -31,18 +25,15 @@ export async function generateMetadata({
   }>;
 }): Promise<Metadata | undefined> {
   const { slug } = await params;
-  const post = allPosts.find((p) => p._meta.path.replace(/\.mdx$/, "") === slug);
+  const post = await prisma.post.findUnique({
+    where: { slug },
+  });
 
   if (!post) {
     return undefined;
   }
 
-  let {
-    title,
-    publishedAt: publishedTime,
-    summary: description,
-    image,
-  } = post;
+  const { title, summary: description, publishedAt } = post;
 
   return {
     title,
@@ -51,23 +42,13 @@ export async function generateMetadata({
       title,
       description,
       type: "article",
-      publishedTime,
+      publishedTime: publishedAt.toISOString(),
       url: `${DATA.url}/blog/${slug}`,
-      ...(image && {
-        images: [
-          {
-            url: `${DATA.url}${image}`,
-          },
-        ],
-      }),
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      ...(image && {
-        images: [`${DATA.url}${image}`],
-      }),
     },
   };
 }
@@ -80,32 +61,38 @@ export default async function Blog({
   }>;
 }) {
   const { slug } = await params;
-  const sortedPosts = getSortedPosts();
-  const currentIndex = sortedPosts.findIndex(
-    (p) => p._meta.path.replace(/\.mdx$/, "") === slug
-  );
-  const post = sortedPosts[currentIndex];
+  const post = await prisma.post.findUnique({
+    where: { slug },
+  });
 
   if (!post) {
     notFound();
   }
 
-  const previousPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
-  const nextPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
+  // Get previous and next posts based on publish date
+  const previousPost = await prisma.post.findFirst({
+    where: {
+      published: true,
+      publishedAt: { lt: post.publishedAt },
+    },
+    orderBy: { publishedAt: "desc" },
+  });
 
-  const getSlug = (post: (typeof sortedPosts)[0]) =>
-    post._meta.path.replace(/\.mdx$/, "");
+  const nextPost = await prisma.post.findFirst({
+    where: {
+      published: true,
+      publishedAt: { gt: post.publishedAt },
+    },
+    orderBy: { publishedAt: "asc" },
+  });
 
   const jsonLdContent = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: post.title,
-    datePublished: post.publishedAt,
-    dateModified: post.publishedAt,
+    datePublished: post.publishedAt.toISOString(),
+    dateModified: post.updatedAt.toISOString(),
     description: post.summary,
-    image: post.image
-      ? `${DATA.url}${post.image}`
-      : `${DATA.url}/blog/${slug}/opengraph-image`,
     url: `${DATA.url}/blog/${slug}`,
     author: {
       "@type": "Person",
@@ -148,14 +135,14 @@ export default async function Blog({
         />
       </div>
       <article className="prose max-w-full text-pretty font-sans leading-relaxed text-muted-foreground dark:prose-invert">
-        <MDXContent code={post.mdx} components={mdxComponents} />
+        <ReactMarkdown>{post.content}</ReactMarkdown>
       </article>
 
       <nav className="mt-12 pt-8 max-w-2xl">
         <div className="flex flex-col sm:flex-row justify-between gap-4">
           {previousPost ? (
             <Link
-              href={`/blog/${getSlug(previousPost)}`}
+              href={`/blog/${previousPost.slug}`}
               className="group flex-1 flex flex-col gap-1 p-4 rounded-lg border border-border hover:bg-accent/50 transition-colors"
             >
               <span className="flex items-center gap-1 text-xs text-muted-foreground">
@@ -172,7 +159,7 @@ export default async function Blog({
 
           {nextPost ? (
             <Link
-              href={`/blog/${getSlug(nextPost)}`}
+              href={`/blog/${nextPost.slug}`}
               className="group flex-1 flex flex-col gap-1 p-4 rounded-lg border border-border hover:bg-accent/50 transition-colors text-right"
             >
               <span className="flex items-center justify-end gap-1 text-xs text-muted-foreground">
