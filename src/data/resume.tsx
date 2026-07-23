@@ -92,7 +92,7 @@ export const DATA = {
   projects: [
     {
       title: "Real-time Multiplayer Chess Game",
-      href: "https://chess-opal-one.vercel.app/",
+      href: "https://chess.imyash.in",
       dates: "",
       active: true,
       description:
@@ -109,7 +109,7 @@ export const DATA = {
       links: [
         {
           type: "Website",
-          href: "https://chess-opal-one.vercel.app/",
+          href: "https://chess.imyash.in",
           icon: <Icons.globe className="size-3" />,
         },
         {
@@ -118,7 +118,7 @@ export const DATA = {
           icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "",
+      image: "/chess.svg",
       video: "",
     },
     {
