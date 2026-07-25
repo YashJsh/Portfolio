@@ -35,74 +35,87 @@ const styles = {
         width: "100%",
         display: "flex",
         flexDirection: "column",
-        backgroundColor: "#ffffff",
-        position: "relative",
-    },
-    middleWrapper: {
-        height: "100%",
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        backgroundColor: "#ffffff",
-        position: "relative",
-        padding: "40px",
+        backgroundColor: "#0a0a0a",
+        color: "#ffffff",
+        padding: "36px",
     },
     wrapper: {
         height: "100%",
         width: "100%",
         display: "flex",
-        flexDirection: "column",
-        backgroundColor: "#fafafa",
-        position: "relative",
-        padding: "40px",
-        border: "1px solid #e5e5e5",
-        borderRadius: "12px",
-    },
-    imageSection: {
-        position: "absolute",
-        top: "40px",
-        left: "40px",
-        display: "flex",
+        flexDirection: "row",
         alignItems: "center",
-        zIndex: "2",
+        justifyContent: "space-between",
+        backgroundColor: "#121212",
+        padding: "48px",
+        border: "1px solid #262626",
+        borderRadius: "24px",
+        position: "relative",
     },
-    mainContainer: {
+    leftColumn: {
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-start",
-        justifyContent: "flex-end",
-        height: "100%",
-        width: "100%",
-        position: "relative",
-        zIndex: "1",
+        justifyContent: "center",
+        flex: "1",
+        paddingRight: "36px",
     },
-    image: {
-        width: "140px",
-        height: "140px",
-        borderRadius: "24px",
-        border: "4px solid #e5e5e5",
+    rightColumn: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#1c1c1c",
+        padding: "24px",
+        borderRadius: "20px",
+        border: "1px solid #333333",
+    },
+    avatar: {
+        width: "200px",
+        height: "200px",
+        borderRadius: "20px",
+        border: "2px solid #404040",
         objectFit: "cover",
     },
-    title: {
+    tag: {
+        fontSize: "14px",
+        color: "#a3a3a3",
+        backgroundColor: "#262626",
+        padding: "6px 14px",
+        borderRadius: "100px",
+        marginBottom: "16px",
+        border: "1px solid #404040",
+    },
+    name: {
         fontFamily: "Clash Display",
-        fontSize: "48px",
+        fontSize: "52px",
         fontWeight: "600",
         lineHeight: "1.1",
-        textAlign: "left",
-        color: "#000000",
-        marginBottom: "16px",
+        color: "#ffffff",
+        marginBottom: "12px",
         letterSpacing: "-0.02em",
-        maxWidth: "900px",
     },
     description: {
         fontSize: "20px",
         fontWeight: "400",
         lineHeight: "1.5",
-        textAlign: "left",
-        maxWidth: "800px",
-        color: "#404040",
-        marginBottom: "32px",
-        textWrap: "balance",
+        color: "#a3a3a3",
+        marginBottom: "28px",
+    },
+    skillsRow: {
+        display: "flex",
+        flexDirection: "row",
+        gap: "10px",
+        flexWrap: "wrap",
+    },
+    skillBadge: {
+        fontSize: "14px",
+        fontWeight: "500",
+        color: "#e5e5e5",
+        backgroundColor: "#171717",
+        padding: "6px 12px",
+        borderRadius: "8px",
+        border: "1px solid #333333",
     },
 } as const;
 
@@ -119,24 +132,35 @@ export default async function Image() {
     try {
         const fontData = getFontData();
         const imageUrl = getAvatarDataUrl();
+        const topSkills = ["TypeScript", "React", "Next.js", "Node.js", "PostgreSQL", "Rust"];
 
         return new ImageResponse(
             (
                 <div style={styles.outerWrapper}>
-                    <div style={styles.middleWrapper}>
-                        <div style={styles.wrapper}>
-                            {imageUrl && (
-                                <div style={styles.imageSection}>
-                                    <img src={imageUrl} alt={DATA.name} style={styles.image} width="140" height="140" />
-                                </div>
-                            )}
-                            <div style={styles.mainContainer}>
-                                <div style={styles.title}>{DATA.name}</div>
-                                {DATA.description && (
-                                    <div style={styles.description}>{DATA.description}</div>
-                                )}
+                    <div style={styles.wrapper}>
+                        <div style={styles.leftColumn}>
+                            <div style={styles.tag}>Portfolio & Developer</div>
+                            <div style={styles.name}>{DATA.name}</div>
+                            <div style={styles.description}>{DATA.description}</div>
+                            <div style={styles.skillsRow}>
+                                {topSkills.map((skill) => (
+                                    <div key={skill} style={styles.skillBadge}>
+                                        {skill}
+                                    </div>
+                                ))}
                             </div>
                         </div>
+                        {imageUrl && (
+                            <div style={styles.rightColumn}>
+                                <img
+                                    src={imageUrl}
+                                    alt={DATA.name}
+                                    style={styles.avatar}
+                                    width="200"
+                                    height="200"
+                                />
+                            </div>
+                        )}
                     </div>
                 </div>
             ),
@@ -148,12 +172,6 @@ export default async function Image() {
                             name: "Cabinet Grotesk",
                             data: fontData.cabinetGrotesk,
                             weight: 400,
-                            style: "normal",
-                        },
-                        {
-                            name: "Cabinet Grotesk",
-                            data: fontData.cabinetGrotesk,
-                            weight: 700,
                             style: "normal",
                         },
                         {

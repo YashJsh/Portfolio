@@ -8,11 +8,54 @@ import Link from "next/link";
 import { useState } from "react";
 import Markdown from "react-markdown";
 
-function ProjectImage({ src, alt }: { src: string; alt: string }) {
+function ProjectImage({ src, alt, tags }: { src: string; alt: string; tags?: readonly string[] }) {
   const [imageError, setImageError] = useState(false);
 
   if (!src || imageError) {
-    return <div className="w-full h-48 bg-muted" />;
+    // Generate a sleek dynamic visual project cover on the fly
+    const initials = alt
+      .split(" ")
+      .map((w) => w[0])
+      .join("")
+      .slice(0, 3)
+      .toUpperCase();
+
+    return (
+      <div className="w-full h-48 bg-gradient-to-br from-neutral-900 via-neutral-950 to-black text-white p-5 flex flex-col justify-between relative overflow-hidden border-b border-border/40 select-none">
+        {/* Subtle diagonal grid pattern overlay */}
+        <div className="absolute inset-0 bg-diagonal-stripes opacity-20 pointer-events-none" />
+        <div className="absolute -right-8 -bottom-8 size-36 rounded-full bg-primary/10 blur-2xl pointer-events-none" />
+
+        <div className="flex items-center justify-between z-10">
+          <div className="size-8 rounded-lg border border-white/20 bg-white/5 flex items-center justify-center text-xs font-mono font-bold tracking-wider text-white">
+            {initials}
+          </div>
+          <span className="text-[10px] font-mono text-neutral-400 bg-white/5 px-2 py-0.5 rounded-full border border-white/10">
+            Project Preview
+          </span>
+        </div>
+
+        <div className="flex flex-col gap-1 z-10 mt-auto">
+          <h4 className="font-semibold text-sm sm:text-base text-white tracking-tight line-clamp-1">
+            {alt}
+          </h4>
+          {tags && tags.length > 0 && (
+            <div className="flex items-center gap-1.5 flex-wrap">
+              {tags.slice(0, 3).map((tag) => (
+                <span key={tag} className="text-[10px] font-medium text-neutral-300 bg-neutral-800/80 px-2 py-0.5 rounded border border-neutral-700/50">
+                  {tag}
+                </span>
+              ))}
+              {tags.length > 3 && (
+                <span className="text-[10px] text-neutral-500 font-mono">
+                  +{tags.length - 3}
+                </span>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -77,10 +120,8 @@ export function ProjectCard({
               playsInline
               className="w-full h-48 object-cover"
             />
-          ) : image ? (
-            <ProjectImage src={image} alt={title} />
           ) : (
-            <div className="w-full h-48 bg-muted" />
+            <ProjectImage src={image || ""} alt={title} tags={tags} />
           )}
         </Link>
         {links && links.length > 0 && (
