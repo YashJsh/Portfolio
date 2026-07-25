@@ -4,7 +4,7 @@ import { HomeIcon, NotebookIcon, Pencil } from "lucide-react";
 export const DATA = {
   name: "Yash Joshi",
   initials: "YJ",
-  url: "https://yashjoshi.com", // Replace if they have a specific url
+  url: "https://www.imyash.in",
   location: "Remote",
   locationLink: "",
   description:

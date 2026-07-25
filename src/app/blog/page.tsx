@@ -14,20 +14,11 @@ export const metadata: Metadata = {
     description: "Thoughts on software development, life, and more.",
     url: "/blog",
     type: "website",
-    images: [
-      {
-        url: "/blog/opengraph-image",
-        width: 1200,
-        height: 630,
-        alt: "Blog",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Blog",
     description: "Thoughts on software development, life, and more.",
-    images: ["/blog/opengraph-image"],
   },
 };
 
