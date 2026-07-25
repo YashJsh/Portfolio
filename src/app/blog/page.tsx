@@ -22,6 +22,8 @@ export const metadata: Metadata = {
   },
 };
 
+export const revalidate = 60;
+
 const PAGE_SIZE = 5;
 const BLUR_FADE_DELAY = 0.04;
 

@@ -2,12 +2,14 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ChevronLeft, Pencil, Trash2, Plus, Lock, RefreshCw, ArrowLeft } from "lucide-react";
 import { verifyPassword, savePost, deletePost, getAdminPosts, type AdminPost } from "./actions";
 import { formatDate } from "@/lib/utils";
 import { toast } from "sonner";
 
 export default function AdminPage() {
+  const router = useRouter();
   const [password, setPassword] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [error, setError] = useState("");
@@ -76,6 +78,13 @@ export default function AdminPage() {
     setSummary("");
     setContent("");
     setError("");
+  };
+
+  const handleLock = () => {
+    setIsAuthenticated(false);
+    setPassword("");
+    handleCloseEditor();
+    router.push("/blog");
   };
 
   const handleEdit = (post: AdminPost) => {
@@ -194,11 +203,7 @@ export default function AdminPage() {
       {/* Top navigation & controls */}
       <div className="flex items-center justify-between border-b border-dashed border-border pb-4">
         <button
-          onClick={() => {
-            setIsAuthenticated(false);
-            setPassword("");
-            handleCloseEditor();
-          }}
+          onClick={handleLock}
           className="text-xs text-muted-foreground hover:text-foreground transition-colors border border-border rounded-lg px-2.5 py-1.5 inline-flex items-center gap-1.5 group cursor-pointer"
         >
           <Lock className="size-3.5" />

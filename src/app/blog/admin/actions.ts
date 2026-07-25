@@ -77,6 +77,8 @@ export async function savePost(
   }
 
   revalidatePath("/blog");
+  revalidatePath(`/blog/${slug}`);
+  revalidatePath("/blog/[slug]", "page");
   revalidatePath("/blog/admin");
 }
 
@@ -100,6 +102,7 @@ export async function deletePost(password: string, id: string) {
   });
 
   revalidatePath("/blog");
+  revalidatePath("/blog/[slug]", "page");
   revalidatePath("/blog/admin");
 }
 

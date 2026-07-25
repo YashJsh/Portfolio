@@ -7,6 +7,9 @@ import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 
+// Revalidate static post pages every 60 seconds as a fail-safe for direct DB updates
+export const revalidate = 60;
+
 export async function generateStaticParams() {
   const posts = await prisma.post.findMany({
     where: { published: true },
