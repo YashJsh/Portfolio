@@ -1,7 +1,6 @@
 import { ImageResponse } from "next/og";
 import { prisma } from "@/lib/db";
 import { DATA } from "@/data/resume";
-
 import { readFileSync } from "fs";
 import { join } from "path";
 
@@ -16,107 +15,18 @@ export const contentType = "image/png";
 
 const getFontData = () => {
     try {
-        const cabinetGrotesk = readFileSync(
-            join(process.cwd(), "public/fonts/CabinetGrotesk-Medium.ttf")
-        );
         const clashDisplay = readFileSync(
             join(process.cwd(), "public/fonts/ClashDisplay-Semibold.ttf")
         );
-        return { cabinetGrotesk, clashDisplay };
-    } catch (error) {
-        console.error("Failed to load fonts:", error);
+        return clashDisplay;
+    } catch {
         return null;
     }
 };
 
-const styles = {
-    outerWrapper: {
-        height: "100%",
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        backgroundColor: "#ffffff",
-        position: "relative",
-    },
-    middleWrapper: {
-        height: "100%",
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        backgroundColor: "#ffffff",
-        position: "relative",
-        padding: "40px",
-    },
-    wrapper: {
-        height: "100%",
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        backgroundColor: "#fafafa",
-        position: "relative",
-        padding: "40px",
-        border: "1px solid #e5e5e5",
-        borderRadius: "12px",
-    },
-    imageSection: {
-        position: "absolute",
-        top: "40px",
-        left: "40px",
-        display: "flex",
-        alignItems: "center",
-        zIndex: "2",
-    },
-    mainContainer: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-start",
-        justifyContent: "flex-end",
-        height: "100%",
-        width: "100%",
-        position: "relative",
-        zIndex: "1",
-    },
-    image: {
-        width: "140px",
-        height: "140px",
-        borderRadius: "24px",
-        border: "4px solid #e5e5e5",
-        objectFit: "cover",
-    },
-    title: {
-        fontFamily: "Clash Display",
-        fontSize: "48px",
-        fontWeight: "600",
-        lineHeight: "1.1",
-        textAlign: "left",
-        color: "#000000",
-        marginBottom: "16px",
-        letterSpacing: "-0.02em",
-        maxWidth: "900px",
-    },
-    description: {
-        fontSize: "20px",
-        fontWeight: "400",
-        lineHeight: "1.5",
-        textAlign: "left",
-        maxWidth: "800px",
-        color: "#404040",
-        marginBottom: "16px",
-        textWrap: "balance",
-    },
-    date: {
-        fontSize: "16px",
-        fontWeight: "400",
-        lineHeight: "1.5",
-        textAlign: "left",
-        color: "#666666",
-        marginBottom: "32px",
-    },
-} as const;
-
 const getAvatarDataUrl = () => {
     try {
-        const buffer = readFileSync(join(process.cwd(), "public/me.png"));
+        const buffer = readFileSync(join(process.cwd(), "public/yashjsh-og.png"));
         return `data:image/png;base64,${buffer.toString("base64")}`;
     } catch {
         return null;
@@ -128,113 +38,87 @@ export default async function Image({
 }: {
     params: Promise<{ slug: string }>;
 }) {
-    try {
-        const fontData = getFontData();
-        const { slug } = await params;
-        const post = await prisma.post.findUnique({ where: { slug } });
-        const imageUrl = getAvatarDataUrl();
+    const fontData = getFontData();
+    const { slug } = await params;
+    const post = await prisma.post.findUnique({ where: { slug } });
+    const avatarUrl = getAvatarDataUrl();
 
-        if (!post) {
-            return new ImageResponse(
-                (
-                    <div style={styles.outerWrapper}>
-                        <div style={styles.middleWrapper}>
-                            <div style={styles.wrapper}>
-                                {imageUrl && (
-                                    <div style={styles.imageSection}>
-                                        <img src={imageUrl} alt="Blog Post" style={styles.image} width="140" height="140" />
-                                    </div>
-                                )}
-                                <div style={styles.mainContainer}>
-                                    <div style={styles.title}>Post Not Found</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                ),
-                {
-                    ...size,
-                    fonts: fontData
-                        ? [
-                            {
-                                name: "Clash Display",
-                                data: fontData.clashDisplay,
-                                weight: 600,
-                                style: "normal",
-                            },
-                        ]
-                        : undefined,
-                }
-            );
-        }
+    const title = post?.title || "Post Not Found";
+    const date = post?.publishedAt
+        ? new Date(post.publishedAt).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            timeZone: "UTC",
+        })
+        : "";
 
-        const title = post.title;
-        const description = post.summary || "";
-        const publishedDate = post.publishedAt
-            ? new Date(post.publishedAt).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-                timeZone: "UTC",
-            })
-            : "";
-
-        return new ImageResponse(
-            (
-                <div style={styles.outerWrapper}>
-                    <div style={styles.middleWrapper}>
-                        <div style={styles.wrapper}>
-                            {imageUrl && (
-                                <div style={styles.imageSection}>
-                                    <img src={imageUrl} alt={title} style={styles.image} width="140" height="140" />
-                                </div>
-                            )}
-                            <div style={styles.mainContainer}>
-                                <div style={styles.title}>{title}</div>
-                                {description && (
-                                    <div style={styles.description}>{description}</div>
-                                )}
-                                {publishedDate && <div style={styles.date}>{publishedDate}</div>}
-                            </div>
-                        </div>
-                    </div>
+    return new ImageResponse(
+        (
+            <div
+                style={{
+                    height: "100%",
+                    width: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    backgroundColor: "#ffffff",
+                    gap: "24px",
+                }}
+            >
+                {avatarUrl && (
+                    <img
+                        src={avatarUrl}
+                        alt={DATA.name}
+                        width="100"
+                        height="100"
+                        style={{
+                            width: "100px",
+                            height: "100px",
+                            borderRadius: "50%",
+                            objectFit: "cover",
+                        }}
+                    />
+                )}
+                <div
+                    style={{
+                        fontFamily: "Clash Display",
+                        fontSize: "44px",
+                        fontWeight: 600,
+                        color: "#111111",
+                        letterSpacing: "-0.02em",
+                        textAlign: "center",
+                        maxWidth: "900px",
+                        lineHeight: 1.2,
+                    }}
+                >
+                    {title}
                 </div>
-            ),
-            {
-                ...size,
-                fonts: fontData
-                    ? [
-                        {
-                            name: "Cabinet Grotesk",
-                            data: fontData.cabinetGrotesk,
-                            weight: 400,
-                            style: "normal",
-                        },
-                        {
-                            name: "Cabinet Grotesk",
-                            data: fontData.cabinetGrotesk,
-                            weight: 700,
-                            style: "normal",
-                        },
-                        {
-                            name: "Clash Display",
-                            data: fontData.clashDisplay,
-                            weight: 600,
-                            style: "normal",
-                        },
-                    ]
-                    : undefined,
-            }
-        );
-    } catch (error) {
-        console.error("Error generating OpenGraph image:", error);
-        return new Response(
-            `Failed to generate image: ${error instanceof Error ? error.message : "Unknown error"}`,
-            {
-                status: 500,
-            }
-        );
-    }
+                {date && (
+                    <div
+                        style={{
+                            fontSize: "18px",
+                            color: "#999999",
+                        }}
+                    >
+                        {date}
+                    </div>
+                )}
+            </div>
+        ),
+        {
+            ...size,
+            fonts: fontData
+                ? [
+                    {
+                        name: "Clash Display",
+                        data: fontData,
+                        weight: 600,
+                        style: "normal" as const,
+                    },
+                ]
+                : undefined,
+        }
+    );
 }
-
-

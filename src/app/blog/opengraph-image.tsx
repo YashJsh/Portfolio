@@ -1,7 +1,5 @@
- 
 import { ImageResponse } from "next/og";
 import { DATA } from "@/data/resume";
-
 import { readFileSync } from "fs";
 import { join } from "path";
 
@@ -16,99 +14,18 @@ export const contentType = "image/png";
 
 const getFontData = () => {
     try {
-        const cabinetGrotesk = readFileSync(
-            join(process.cwd(), "public/fonts/CabinetGrotesk-Medium.ttf")
-        );
         const clashDisplay = readFileSync(
             join(process.cwd(), "public/fonts/ClashDisplay-Semibold.ttf")
         );
-        return { cabinetGrotesk, clashDisplay };
-    } catch (error) {
-        console.error("Failed to load fonts:", error);
+        return clashDisplay;
+    } catch {
         return null;
     }
 };
 
-const styles = {
-    outerWrapper: {
-        height: "100%",
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        backgroundColor: "#ffffff",
-        position: "relative",
-    },
-    middleWrapper: {
-        height: "100%",
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        backgroundColor: "#ffffff",
-        position: "relative",
-        padding: "40px",
-    },
-    wrapper: {
-        height: "100%",
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        backgroundColor: "#fafafa",
-        position: "relative",
-        padding: "40px",
-        border: "1px solid #e5e5e5",
-        borderRadius: "12px",
-    },
-    imageSection: {
-        position: "absolute",
-        top: "40px",
-        left: "40px",
-        display: "flex",
-        alignItems: "center",
-        zIndex: "2",
-    },
-    mainContainer: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-start",
-        justifyContent: "flex-end",
-        height: "100%",
-        width: "100%",
-        position: "relative",
-        zIndex: "1",
-    },
-    image: {
-        width: "140px",
-        height: "140px",
-        borderRadius: "24px",
-        border: "4px solid #e5e5e5",
-        objectFit: "cover",
-    },
-    title: {
-        fontFamily: "Clash Display",
-        fontSize: "48px",
-        fontWeight: "600",
-        lineHeight: "1.1",
-        textAlign: "left",
-        color: "#000000",
-        marginBottom: "16px",
-        letterSpacing: "-0.02em",
-        maxWidth: "900px",
-    },
-    description: {
-        fontSize: "20px",
-        fontWeight: "400",
-        lineHeight: "1.5",
-        textAlign: "left",
-        maxWidth: "800px",
-        color: "#404040",
-        marginBottom: "32px",
-        textWrap: "balance",
-    },
-} as const;
-
 const getAvatarDataUrl = () => {
     try {
-        const buffer = readFileSync(join(process.cwd(), "public/me.png"));
+        const buffer = readFileSync(join(process.cwd(), "public/yashjsh-og.png"));
         return `data:image/png;base64,${buffer.toString("base64")}`;
     } catch {
         return null;
@@ -116,67 +33,71 @@ const getAvatarDataUrl = () => {
 };
 
 export default async function Image() {
-    try {
-        const fontData = getFontData();
-        const title = "Blog";
-        const description = "Thoughts on software development, life, and more.";
-        const imageUrl = getAvatarDataUrl();
+    const fontData = getFontData();
+    const avatarUrl = getAvatarDataUrl();
 
-        return new ImageResponse(
-            (
-                <div style={styles.outerWrapper}>
-                    <div style={styles.middleWrapper}>
-                        <div style={styles.wrapper}>
-                            {imageUrl && (
-                                <div style={styles.imageSection}>
-                                    <img src={imageUrl} alt="Blog" style={styles.image} width="140" height="140" />
-                                </div>
-                            )}
-                            <div style={styles.mainContainer}>
-                                <div style={styles.title}>{title}</div>
-                                {description && (
-                                    <div style={styles.description}>{description}</div>
-                                )}
-                            </div>
-                        </div>
-                    </div>
+    return new ImageResponse(
+        (
+            <div
+                style={{
+                    height: "100%",
+                    width: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    backgroundColor: "#ffffff",
+                    gap: "24px",
+                }}
+            >
+                {avatarUrl && (
+                    <img
+                        src={avatarUrl}
+                        alt={DATA.name}
+                        width="120"
+                        height="120"
+                        style={{
+                            width: "120px",
+                            height: "120px",
+                            borderRadius: "50%",
+                            objectFit: "cover",
+                        }}
+                    />
+                )}
+                <div
+                    style={{
+                        fontFamily: "Clash Display",
+                        fontSize: "48px",
+                        fontWeight: 600,
+                        color: "#111111",
+                        letterSpacing: "-0.02em",
+                    }}
+                >
+                    Blog
                 </div>
-            ),
-            {
-                ...size,
-                fonts: fontData
-                    ? [
-                        {
-                            name: "Cabinet Grotesk",
-                            data: fontData.cabinetGrotesk,
-                            weight: 400,
-                            style: "normal",
-                        },
-                        {
-                            name: "Cabinet Grotesk",
-                            data: fontData.cabinetGrotesk,
-                            weight: 700,
-                            style: "normal",
-                        },
-                        {
-                            name: "Clash Display",
-                            data: fontData.clashDisplay,
-                            weight: 600,
-                            style: "normal",
-                        },
-                    ]
-                    : undefined,
-            }
-        );
-    } catch (error) {
-        console.error("Error generating OpenGraph image:", error);
-        return new Response(
-            `Failed to generate image: ${error instanceof Error ? error.message : "Unknown error"}`,
-            {
-                status: 500,
-            }
-        );
-    }
+                <div
+                    style={{
+                        fontSize: "18px",
+                        color: "#666666",
+                        textAlign: "center",
+                    }}
+                >
+                    Thoughts on software development, life, and more.
+                </div>
+            </div>
+        ),
+        {
+            ...size,
+            fonts: fontData
+                ? [
+                    {
+                        name: "Clash Display",
+                        data: fontData,
+                        weight: 600,
+                        style: "normal" as const,
+                    },
+                ]
+                : undefined,
+        }
+    );
 }
-
-
