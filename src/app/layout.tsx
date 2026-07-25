@@ -37,6 +37,14 @@ export const metadata: Metadata = {
     siteName: `${DATA.name}`,
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: DATA.name,
+      },
+    ],
   },
   robots: {
     index: true,
@@ -52,6 +60,8 @@ export const metadata: Metadata = {
   twitter: {
     title: `${DATA.name}`,
     card: "summary_large_image",
+    description: DATA.description,
+    images: ["/opengraph-image"],
   },
   verification: {
     google: "",
@@ -105,7 +115,7 @@ export default function RootLayout({
                   }}
                 />
               </div>
-              <div className="flex flex-col min-h-[100dvh] z-[10] space-y-10 px-10 max-[450px]:px-4 py-10 relative border-dashed border-x dark:border-white/30 border-black/30 max-w-[740px] mx-auto bg-background">
+              <div className="flex flex-col min-h-[100dvh] z-[10] space-y-10 px-4 sm:px-6 md:px-10 py-10 relative border-dashed border-x dark:border-white/30 border-black/30 w-full max-w-[740px] mx-auto bg-background">
                 {children}
               </div>
               <Navbar />

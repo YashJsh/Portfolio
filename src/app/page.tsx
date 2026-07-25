@@ -17,7 +17,7 @@ const BLUR_FADE_DELAY = 0.04;
 
 export default function Page() {
   const StripeDivider = () => (
-    <div className="relative w-[100vw] left-1/2 -translate-x-1/2 h-[30px] bg-diagonal-stripes opacity-40 border-y border-dashed border-black/20 dark:border-white/30 pointer-events-none my-2"></div>
+    <div className="relative -mx-4 sm:-mx-6 md:-mx-10 w-[calc(100%+2rem)] sm:w-[calc(100%+3rem)] md:w-[calc(100%+5rem)] h-[30px] bg-diagonal-stripes opacity-40 border-y border-dashed border-black/20 dark:border-white/30 pointer-events-none my-2"></div>
   );
 
   return (
@@ -116,14 +116,14 @@ export default function Page() {
                           </span>
                         )}
                       </div>
-                      <div className="flex flex-col flex-1">
-                        <div className="flex justify-between items-center mb-1">
-                          <h3 className="font-semibold text-foreground text-lg leading-none">{(education as any).school}</h3>
-                          <span className="text-sm font-medium text-muted-foreground tabular-nums tracking-wide">
+                      <div className="flex flex-col flex-1 min-w-0">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-1">
+                          <h3 className="font-semibold text-foreground text-base sm:text-lg leading-none break-words min-w-0">{(education as any).school}</h3>
+                          <span className="text-xs sm:text-sm font-medium text-muted-foreground tabular-nums tracking-wide shrink-0">
                             {(education as any).start} - {(education as any).end}
                           </span>
                         </div>
-                        <p className="text-sm text-muted-foreground/80">{(education as any).degree}</p>
+                        <p className="text-xs sm:text-sm text-muted-foreground/80 break-words">{(education as any).degree}</p>
                       </div>
                     </div>
                   </BlurFade>

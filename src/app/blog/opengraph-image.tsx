@@ -2,7 +2,10 @@
 import { ImageResponse } from "next/og";
 import { DATA } from "@/data/resume";
 
-export const runtime = "edge";
+import { readFileSync } from "fs";
+import { join } from "path";
+
+export const runtime = "nodejs";
 
 export const alt = "Blog";
 export const size = {
@@ -11,16 +14,14 @@ export const size = {
 };
 export const contentType = "image/png";
 
-const getFontData = async () => {
+const getFontData = () => {
     try {
-        const [cabinetGrotesk, clashDisplay] = await Promise.all([
-            fetch(
-                new URL("../../../public/fonts/CabinetGrotesk-Medium.ttf", import.meta.url)
-            ).then((res) => res.arrayBuffer()),
-            fetch(
-                new URL("../../../public/fonts/ClashDisplay-Semibold.ttf", import.meta.url)
-            ).then((res) => res.arrayBuffer()),
-        ]);
+        const cabinetGrotesk = readFileSync(
+            join(process.cwd(), "public/fonts/CabinetGrotesk-Medium.ttf")
+        );
+        const clashDisplay = readFileSync(
+            join(process.cwd(), "public/fonts/ClashDisplay-Semibold.ttf")
+        );
         return { cabinetGrotesk, clashDisplay };
     } catch (error) {
         console.error("Failed to load fonts:", error);
@@ -105,14 +106,21 @@ const styles = {
     },
 } as const;
 
+const getAvatarDataUrl = () => {
+    try {
+        const buffer = readFileSync(join(process.cwd(), "public/me.png"));
+        return `data:image/png;base64,${buffer.toString("base64")}`;
+    } catch {
+        return null;
+    }
+};
+
 export default async function Image() {
     try {
-        const fontData = await getFontData();
+        const fontData = getFontData();
         const title = "Blog";
         const description = "Thoughts on software development, life, and more.";
-        const imageUrl = DATA.avatarUrl
-            ? new URL(DATA.avatarUrl, DATA.url).toString()
-            : undefined;
+        const imageUrl = getAvatarDataUrl();
 
         return new ImageResponse(
             (
@@ -121,7 +129,7 @@ export default async function Image() {
                         <div style={styles.wrapper}>
                             {imageUrl && (
                                 <div style={styles.imageSection}>
-                                    <img src={imageUrl} alt="Blog" style={styles.image} />
+                                    <img src={imageUrl} alt="Blog" style={styles.image} width="140" height="140" />
                                 </div>
                             )}
                             <div style={styles.mainContainer}>
