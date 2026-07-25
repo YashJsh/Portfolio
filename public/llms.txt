@@ -1,0 +1,47 @@
+# Yash Joshi — Portfolio & Blog
+
+> Personal portfolio and blog of Yash Joshi, a Software Developer.
+
+## About
+
+I'm Yash Joshi, a Software Developer who builds projects from scratch to understand how they work behind the scenes. I treat products like my own, spend my time learning, and care about refining the details of what I build.
+
+## Links
+
+- Website: https://www.imyash.in
+- GitHub: https://github.com/YashJsh
+- LinkedIn: https://www.linkedin.com/in/yashjsh/
+- X (Twitter): https://x.com/yash_jsh
+- Email: yash.jsh0@gmail.com
+
+## Skills
+
+TypeScript, JavaScript, React, Next.js, Node.js, Express.js, Hono, PostgreSQL, MongoDB, Prisma, Zustand, Docker, Redis, Git, TailwindCSS, Rust
+
+## Education
+
+- Masters in Computer Application — Amrita University, Coimbatore (2025–2027)
+- BSc (H) Computer Science — BCAS, Delhi University (2021–2024)
+
+## Projects
+
+### Real-time Multiplayer Chess Game
+A real-time two-player chess game with optimistic UI, full rule enforcement, and reliable game state synchronization.
+- Live: https://chess.imyash.in
+- Source: https://github.com/YashJsh/chess
+- Tech: Next.js, React, Zustand, Socket.IO, Node.js, Chess.js, Tailwind CSS
+
+### NotebookLM-style AI Assistant
+An AI-powered assistant that answers questions based on user-provided documents, websites, or raw text using retrieval-augmented generation (RAG).
+- Source: https://github.com/YashJsh/Notebooks-Rag
+- Tech: Next.js, TypeScript, Node.js, Hono, OpenAI, Qdrant, AI SDK
+
+### Raw WebRTC Video Calling App
+A peer-to-peer video calling application built using WebRTC with manual signaling over raw WebSockets, without relying on high-level abstractions.
+- Source: https://github.com/YashJsh/Raw-sockets-Video-Chat
+- Tech: Next.js, TypeScript, WebRTC, WebSockets, Node.js
+
+## Pages
+
+- Home: https://www.imyash.in/
+- Blog: https://www.imyash.in/blog
