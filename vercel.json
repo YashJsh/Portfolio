@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "installCommand": "bun install",
+  "installCommand": "bun install && npm install --no-save --platform=linux --arch=x64 lightningcss @tailwindcss/oxide",
   "buildCommand": "bun run build",
   "framework": "nextjs"
 }
