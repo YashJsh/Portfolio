@@ -91,6 +91,79 @@ export const DATA = {
   ] as any[],
   projects: [
     {
+      title: "Perpetual Futures Exchange Engine",
+      href: "https://github.com/YashJsh/PERP",
+      dates: "",
+      active: true,
+      description:
+        "A high-performance perpetual futures matching engine with in-memory orderbook structures, event-driven processing, and risk controls.",
+      technologies: [
+        "TypeScript",
+        "Turborepo",
+        "Redis Streams",
+        "WebSocket",
+        "B-Trees",
+        "Node.js",
+      ],
+      links: [
+        {
+          type: "Source",
+          href: "https://github.com/YashJsh/PERP",
+          icon: <Icons.github className="size-3" />,
+        },
+      ],
+      image: "/perp_.svg",
+      video: "",
+    },
+    {
+      title: "Lobable",
+      href: "https://github.com/YashJsh/lobable",
+      dates: "",
+      active: true,
+      description:
+        "Cloud-based AI application generator with real-time code execution, live previews, and a human-in-the-loop blueprint refinement workflow.",
+      technologies: [
+        "Next.js",
+        "Express.js",
+        "E2B",
+        "Monaco Editor",
+        "SSE",
+        "Node.js",
+      ],
+      links: [
+        {
+          type: "Source",
+          href: "https://github.com/YashJsh/lobable",
+          icon: <Icons.github className="size-3" />,
+        },
+      ],
+      image: "lobable.svg",
+      video: "",
+    },
+    {
+      title: "AI Coding CLI",
+      href: "https://github.com/YashJsh/AI-Harness",
+      dates: "",
+      active: true,
+      description:
+        "A CLI-based AI coding agent with autonomous tool execution and an interactive shell for single-shot and iterative workflows.",
+      technologies: [
+        "TypeScript",
+        "Bun",
+        "Groq SDK",
+        "CLI/TUI",
+      ],
+      links: [
+        {
+          type: "Source",
+          href: "https://github.com/YashJsh/AI-Harness",
+          icon: <Icons.github className="size-3" />,
+        },
+      ],
+      image: "",
+      video: "",
+    },
+    {
       title: "Real-time Multiplayer Chess Game",
       href: "https://chess.imyash.in",
       dates: "",
@@ -104,7 +177,7 @@ export const DATA = {
         "Socket.IO",
         "Node.js",
         "Chess.js",
-        "Tailwind CSS"
+        "Tailwind CSS",
       ],
       links: [
         {
@@ -135,7 +208,7 @@ export const DATA = {
         "Hono",
         "OpenAI",
         "Qdrant",
-        "AI SDK"
+        "AI SDK",
       ],
       links: [
         {
@@ -147,30 +220,6 @@ export const DATA = {
       image: "",
       video: "",
     },
-    {
-      title: "Raw WebRTC Video Calling App",
-      href: "https://github.com/YashJsh/Raw-sockets-Video-Chat",
-      dates: "",
-      active: true,
-      description:
-        "A peer-to-peer video calling application built using WebRTC with manual signaling over raw WebSockets, without relying on high-level abstractions.",
-      technologies: [
-        "Next.js",
-        "TypeScript",
-        "WebRTC",
-        "WebSockets",
-        "Node.js"
-      ],
-      links: [
-        {
-          type: "Source",
-          href: "https://github.com/YashJsh/Raw-sockets-Video-Chat",
-          icon: <Icons.github className="size-3" />,
-        },
-      ],
-      image: "",
-      video: "",
-    }
   ],
   hackathons: [] as any[],
 } as const;
