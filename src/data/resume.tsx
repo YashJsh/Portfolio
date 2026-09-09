@@ -8,9 +8,9 @@ export const DATA = {
   location: "Remote",
   locationLink: "",
   description:
-    "I build things. I write code. Software Developer.",
+    "I build things. I write code.",
   summary:
-    `I’m Yash Joshi, Software Developer who builds projects from scratch to understand how they work behind the scenes. I treat products like my own, spend my time learning, and care about refining the details of what I build.`,
+    `I'm a software developer who treats every product like it's mine. That means building from scratch to learn how things really work, and polishing details others skip.`,
   avatarUrl: "/yashjsh.svg",
   skills: [
     { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },

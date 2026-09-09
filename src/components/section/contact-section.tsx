@@ -57,7 +57,7 @@ export default function ContactSection() {
                     <span className="text-xl leading-none hidden sm:inline">•</span>
                     <button 
                         onClick={() => {
-                            navigator.clipboard.writeText("7302002700@ybl");
+                            navigator.clipboard.writeText("yaxj28@ybl");
                             toast.success("UPI address copied!");
                         }}
                         className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 border border-dashed border-border/80 rounded-lg bg-background hover:bg-muted/50 hover:border-foreground/50 transition-colors text-foreground shadow-sm cursor-pointer"
