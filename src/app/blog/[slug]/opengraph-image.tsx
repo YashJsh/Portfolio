@@ -26,8 +26,8 @@ const getFontData = () => {
 
 const getAvatarDataUrl = () => {
     try {
-        const buffer = readFileSync(join(process.cwd(), "public/yashjsh-og.png"));
-        return `data:image/png;base64,${buffer.toString("base64")}`;
+        const buffer = readFileSync(join(process.cwd(), "public/yashjsh.svg"));
+        return `data:image/svg+xml;base64,${buffer.toString("base64")}`;
     } catch {
         return null;
     }
